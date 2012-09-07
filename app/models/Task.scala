@@ -7,6 +7,7 @@ import org.scalaquery.ql._
 import org.scalaquery.ql.TypeMapper._
 import org.scalaquery.ql.extended.{ExtendedTable => Table}
 
+
 import play.api.db._
 import play.api.Play.current
 
@@ -37,15 +38,14 @@ object Task extends Table[(Long, String)]("TASK") {
   }
 
   def create(label: String) {
-    database.withSession(implicit session =>
-      Task.label.insert(label)
+    database.withSession( (s:Session) =>
+      Task.label.insert(label)(s)
     )
   }
 
   def delete(id: Long) {
-    database.withSession(implicit session =>
+    database.withSession((s:Session) =>
       Task.delete(id)
     )
   }
-
 }
