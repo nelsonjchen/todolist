@@ -27,7 +27,7 @@ object Task extends Table[(Long, String)]("TASK") {
   def * = id ~ label
 
   def all(): List[Task] = {
-    database.withSession(implicit c => {
+    database.withSession(implicit s => {
       val query = for (u <- Task) yield u
       query.list().map {
         t => Task(t._1, t._2)
@@ -37,9 +37,15 @@ object Task extends Table[(Long, String)]("TASK") {
   }
 
   def create(label: String) {
+    database.withSession(implicit session =>
+      Task.label.insert(label)
+    )
   }
 
   def delete(id: Long) {
+    database.withSession(session =>
+      Task.delete(id)
+    )
   }
 
 }
