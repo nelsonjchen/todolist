@@ -43,7 +43,7 @@ object Task extends Table[(Long, String)]("TASK") {
   }
 
   def delete(id: Long) {
-    database.withSession(session =>
+    database.withSession(implicit session =>
       Task.delete(id)
     )
   }
