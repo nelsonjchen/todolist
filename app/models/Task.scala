@@ -18,7 +18,7 @@ case class Task(id: Long, label: String)
 
 object Task extends Table[(Long, String)]("task") {
 
-  lazy val database = Database.forDataSource(DB.getDataSource())
+  lazy val database = Database.forDataSource(DB.getDataSource("default"))
 
   def id = column[Long]("id", O PrimaryKey, O AutoInc)
 
@@ -26,7 +26,15 @@ object Task extends Table[(Long, String)]("task") {
 
   def * = id ~ label
 
-  def all(): List[Task] = List()
+  def all(): List[Task] = {
+    database.withSession(implicit c => {
+      val query = for (u <- Task) yield u
+      query.list().map {
+        t => Task(t._1, t._2)
+      }
+    }
+    )
+  }
 
   def create(label: String) {
   }
