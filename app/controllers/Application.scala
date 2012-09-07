@@ -19,6 +19,7 @@ object Application extends Controller {
   def tasks = Action {
     Ok(views.html.index(Task.all(), taskForm))
   }
+
   def newTask = Action { implicit request =>
     taskForm.bindFromRequest.fold(
       errors => BadRequest(views.html.index(Task.all(), errors)),
