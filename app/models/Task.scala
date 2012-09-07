@@ -16,13 +16,13 @@ import org.scalaquery.session._
 
 case class Task(id: Long, label: String)
 
-object Task extends Table[(Long, String)]("task") {
+object Task extends Table[(Long, String)]("TASK") {
 
   lazy val database = Database.forDataSource(DB.getDataSource("default"))
 
-  def id = column[Long]("id", O PrimaryKey, O AutoInc)
+  def id = column[Long]("ID", O PrimaryKey, O AutoInc)
 
-  def label = column[String]("label")
+  def label = column[String]("LABEL")
 
   def * = id ~ label
 

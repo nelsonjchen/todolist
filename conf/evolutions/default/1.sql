@@ -3,9 +3,9 @@
 # --- !Ups
 
 CREATE SEQUENCE task_id_seq;
-CREATE TABLE task (
-    id integer NOT NULL DEFAULT nextval('task_id_seq'),
-    label varchar(255)
+CREATE TABLE TASK (
+    ID integer NOT NULL DEFAULT nextval('task_id_seq'),
+    LABEL varchar(255)
 );
 
 # --- !Downs
