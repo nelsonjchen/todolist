@@ -38,13 +38,13 @@ object Task extends Table[(Long, String)]("TASK") {
   }
 
   def create(label: String) {
-    database.withSession( (s:Session) =>
+    database.withSession((s: Session) =>
       Task.label.insert(label)(s)
     )
   }
 
   def delete(id: Long) {
-    database.withSession((s:Session) => {
+    database.withSession((s: Session) => {
       val q = Task.where(_.id === id)
       q.delete(s)
     }
