@@ -44,8 +44,10 @@ object Task extends Table[(Long, String)]("TASK") {
   }
 
   def delete(id: Long) {
-    database.withSession((s:Session) =>
-      Task.delete(id)
+    database.withSession((s:Session) => {
+      val q = Task.where(_.id === id)
+      q.delete(s)
+    }
     )
   }
 }
